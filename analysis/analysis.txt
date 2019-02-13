@@ -1,4 +1,4 @@
-YOUR NAME and YOUR NETID
+SAM LAMBA and sl562
 
 Run WordGramDriver for wordgrams of size 2-10 and record
 the number of WordGram values/objects that occur more than
@@ -15,13 +15,13 @@ values of WSIZE
 WSIZE    # duplicates
 2        60,453
 3        10,756
-4
-5
-6
-7
-8
-9
-10
+4		 1,987
+5		 667
+6		 362
+7		 226
+8		 151
+9		 105
+10		 73
 
 =====
 Explain in your own words the conceptual differences between 
@@ -30,11 +30,25 @@ Answer these questions:
 
 (1) Why the results of these methods should be the same in 
 terms of changes made to the HashSet parameter passed to each method.
-
+	The first one and the second one are effectively doing the same thing but using different techniques. 
+	The first one is creating a wordgram of WSize starting from index 0 and keeps adding until the last wordgram that's possible without going out of bounds.
+	The second one on the other hand is simply using the shiftAdd to add the next word in the text and seeing if that is a unique wordgram. 
+	Due to this they have the exact same HashSet at the end. This is shown by them having the same size at the end.
 (2) What are the conceptual differences between the two
 benchmarking methods
+	The first one makes an array of everything in the text. This takes a lot of time and causes the array to be very big. 
+	Then it creates a wordgram from the array and creates many different array by moving one word forward each time. 
+	The second one makes an array of size WSIZE. Then it shifts that array and adds it to the set, and keeps shifting and adding if there is more words remaining. It counts every time it shifts and thus only creates one array.
+	As both of these are in set, only the unique instaces remain in the set.
 
 (3) Is the total amount of memory allocated for arrays
 the same or different in the two methods? Account for
 arrays created in the methods and arrays created by
 WordGram objects. Try to be quantitative in answering.
+	The first one takes a lot more memory than the second one as the first one creates an array with every single word in the text. Adding elements to an arrayList consumes memory. The second one avoids this as it only has an arrayList of fixed size (WSize).
+	For the first one we are creating (words.length - WSIZE + 1)*wordsGram. Each words gram has a string with size WSize-k. This takes up a lot of space.
+	On the other hand, the second method only creates one wordsGram of size WSize and one new string array of size WSize is used and thus is saving a lot more memory space. 
+	Quantitatively, if WSIZE is assigned a value of 3, the total number of words is 177634. The first method would
+	create a big ArrayList of size 177634 words and then create wordGram for every 3 words in that ArrayList. 
+	The second method just creates one array of size 3 and updates it using addShift. As the second one only has 
+	one array, it will be much faster. 
