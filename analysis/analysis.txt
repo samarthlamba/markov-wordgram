@@ -31,8 +31,9 @@ Answer these questions:
 (1) Why the results of these methods should be the same in 
 terms of changes made to the HashSet parameter passed to each method.
 	The first one and the second one are effectively doing the same thing but using different techniques. 
-	The first one is creating a wordgram of WSize starting from index 0 and keeps adding until the last wordgram that's possible without going out of bounds.
-	The second one on the other hand is simply using the shiftAdd to add the next word in the text and seeing if that is a unique wordgram. 
+	The first one is creating a wordgram of WSize starting from index 0 and keeps making and adding a new (unique as in set) wordgram until the last wordgram that's possible without going out of bounds.
+	The second one on the other hand is simply using the shiftAdd to add the next word in the text and seeing if that is a unique (by being in a set) wordgram and adding that.
+	They both are effectively going throgh all the text but in different ways 
 	Due to this they have the exact same HashSet at the end. This is shown by them having the same size at the end.
 (2) What are the conceptual differences between the two
 benchmarking methods
